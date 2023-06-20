@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Layer, LayerGroups } from '../../libs/layer.group';
+import { Layer, LayerGroups } from '../../libs/interfaces';
 import * as Styled from './layerSwitcher.style';
 
 interface LayerSwitcherProps {

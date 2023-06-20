@@ -1,7 +1,7 @@
 import MVT from 'ol/format/MVT';
 import VectorTileSource from 'ol/source/VectorTile';
 
-import { ExtendedVectorTileLayer } from '../../../components/libs/extend.layers';
+import { ExtendedVectorTileLayer } from '../../../components/libs/interfaces';
 import { config } from '../../../config';
 import store from '../../../store/store';
 import { droughtStyleComplex } from './drought.style';

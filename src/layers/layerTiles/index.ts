@@ -1,4 +1,4 @@
-import { LayerGroups } from '../../components/libs/layer.group';
+import { LayerGroups } from '../../components/libs/interfaces';
 import { droughtSliceActions } from './drought/drought.properties';
 import { droughtTilesLayers } from './drought/drought.tiles';
 import { filosofiSliceActions } from './filosofi.appenin/filosofi.properties';

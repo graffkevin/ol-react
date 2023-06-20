@@ -3,7 +3,7 @@ import View from 'ol/View';
 import { useContext, useEffect, useState } from 'react';
 
 import { openlayerContext } from '../../context';
-import * as Styled from './style/styled';
+import * as Styled from './base.style.map/styled';
 import { useSearchCoordinates } from './urlController/searchCoordinates';
 
 export function MapRendering(): JSX.Element {

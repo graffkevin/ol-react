@@ -14,27 +14,27 @@ const filosofiPropertiesSlice: Slice = createSlice({
       },
       veryLightGreen: {
         color: 'rgba(227, 253, 228, 0.8)',
-        title: 'Très faible',
+        title: '< 8381 euros',
         threshold: 8381,
       },
       lightGreen: {
         color: 'rgba(162, 255, 167, 0.8)',
-        title: 'Faible',
+        title: '< 20936 euros',
         threshold: 20936,
       },
       mediumGreen: {
         color: 'rgba(53, 228, 62, 0.8)',
-        title: 'Moyenne',
+        title: '< 23756 euros',
         threshold: 23756,
       },
       strongGreen: {
         color: 'rgba(0, 94, 5, 0.8)',
-        title: 'Forte',
+        title: '< 40000 euros',
         threshold: 40000,
       },
       veryStrongGreen: {
         color: 'rgba(0, 42, 2, 0.8)',
-        title: 'Très forte',
+        title: '< 66061 euros',
         threshold: 66061,
       },
     },

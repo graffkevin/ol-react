@@ -18,3 +18,13 @@ export class ExtendedVectorTileLayer extends VectorTileLayer {
     this.legendVisibility = options.legendVisibility || false;
   }
 }
+
+export interface Layer {
+  tilesLayers: ExtendedVectorTileLayer;
+  properties: string;
+  sliceActions: any;
+}
+
+export interface LayerGroups {
+  [key: string]: Layer;
+}
