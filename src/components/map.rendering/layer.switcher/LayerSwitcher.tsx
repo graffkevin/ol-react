@@ -5,6 +5,8 @@ import { Layer, LayerGroups } from '../../libs/interfaces';
 import { DisplayLayer } from './display.layer/Display.layer';
 import { DisplayLegend } from './display.legend/Display.legend';
 import * as Styled from './layerSwitcher.style';
+import { toggleLayerVisibility } from './toggle.layer.visibility';
+import { toggleLegendVisibility } from './toggle.legend.visibility';
 
 interface LayerSwitcherProps {
   layerGroups: LayerGroups;
@@ -18,33 +20,6 @@ export const LayerSwitcher = ({ layerGroups }: LayerSwitcherProps) => {
   const [stateLegendVisibilities, setStateLegendVisibilities] = useState<{
     [key: string]: boolean;
   }>({});
-
-  const toggleLayerVisibility = (
-    getLayer: Layer,
-    layerIsVisible: boolean,
-    setStateVisible: React.Dispatch<React.SetStateAction<{ [key: string]: boolean }>>,
-    setStateLegend: React.Dispatch<React.SetStateAction<{ [key: string]: boolean }>>,
-  ) => {
-    const stateVisibility = !layerIsVisible;
-    const tilesLayer = getLayer.tilesLayers;
-    tilesLayer.setVisible(stateVisibility);
-    dispatch(getLayer.sliceActions.setLayerVisibilityAction(stateVisibility));
-    setStateVisible((prevState) => ({ ...prevState, [getLayer.properties]: stateVisibility }));
-
-    if (!layerIsVisible) {
-      setStateLegend((prevState) => ({ ...prevState, [getLayer.properties]: false }));
-      dispatch(getLayer.sliceActions.setLegendVisibilityAction(false));
-    }
-  };
-
-  const toggleLegendVisibility = (layerGroup: Layer) => {
-    const legendIsVisible = !stateLegendVisibilities[layerGroup.properties];
-    setStateLegendVisibilities((prevState) => ({
-      ...prevState,
-      [layerGroup.properties]: legendIsVisible,
-    }));
-    dispatch(layerGroup.sliceActions.setLegendVisibilityAction(legendIsVisible));
-  };
 
   return (
     <Styled.LayerSwitcherContainer>
@@ -60,21 +35,28 @@ export const LayerSwitcher = ({ layerGroups }: LayerSwitcherProps) => {
             layerIsVisible,
             setStateLayerVisibilities,
             setStateLegendVisibilities,
+            dispatch,
           );
         };
 
         const handleToggleLegendVisibility = () => {
-          toggleLegendVisibility(layerGroup);
+          toggleLegendVisibility(
+            layerGroup,
+            stateLegendVisibilities,
+            setStateLegendVisibilities,
+            dispatch,
+          );
         };
 
         return (
           <div key={properties}>
             <DisplayLayer
-              key={properties}
+              key={`${properties}-layer`}
               layerName={layerName}
               toggleLayerVisibility={handleToggleLayerVisibility}
             />
             <DisplayLegend
+              key={`${properties}-legend`}
               layerVisibility={stateLayerVisibility}
               toggleLegendVisibility={handleToggleLegendVisibility}
             />

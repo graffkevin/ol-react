@@ -13,7 +13,7 @@ export const Block = ({ layerName, itemArrayProperties, legendVisibility }: Bloc
     <BlockContainer>
       <p>{layerName}</p>
       {itemArrayProperties.map((value: any) => {
-        return <ItemLegend color={value.color} title={value.title} />;
+        return <ItemLegend key={value.title} color={value.color} title={value.title} />;
       })}
     </BlockContainer>
   );
