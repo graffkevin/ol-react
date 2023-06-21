@@ -10,7 +10,7 @@ interface ContainerContentProps {
   legendVisibility: boolean;
 }
 
-export const ContainerContent = ({ layerGroups, legendVisibility }: ContainerContentProps) => {
+export const LegendContent = ({ layerGroups, legendVisibility }: ContainerContentProps) => {
   const layers = Object.values(layerGroups).map((group: any) => {
     const { properties } = group;
     const layerName = useSelector((state: any) => state[properties].name);

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { LayerGroups } from '../../libs/interfaces';
-import { ContainerContent } from './containerContent/Container.content';
+import { LegendContent } from './legend.content/Legend.content';
 import { ButtonLegend, ContainerButtonAndLegend } from './style';
 
 interface LegendProps {
@@ -14,7 +14,7 @@ export const Legend = ({ layerGroups }: LegendProps) => {
   return (
     <>
       <ContainerButtonAndLegend>
-        <ContainerContent layerGroups={layerGroups} legendVisibility={blockLegendVisibility} />
+        <LegendContent layerGroups={layerGroups} legendVisibility={blockLegendVisibility} />
         <ButtonLegend onClick={toggleDiv}>
           {blockLegendVisibility ? 'hide legend' : 'display legend'}
         </ButtonLegend>

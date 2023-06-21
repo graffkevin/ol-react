@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import { ExtendedVectorTileLayer } from '../../components/libs/interfaces';
 import { cadastreGouv } from './cadastre/cadastre.tiles';
 import { droughtTilesLayers } from './drought/drought.tiles';
 import { filosofiTilesLayers } from './filosofi.appenin/filosofi.tiles';
@@ -9,39 +10,27 @@ import { submersionTilesLayers } from './marineSubmersion/marineSubmersion.tiles
 const initUrlCoords: string = '{z}/{x}/{y}';
 const mockedCoords: string = '#8.1/46.957/0.345';
 
+const statusUrl = async (layer: ExtendedVectorTileLayer) => {
+  const layerSourceUrl: any = layer.getSource()?.getUrls();
+  const layerUrl = layerSourceUrl[0];
+  const mockLayerUrl = layerUrl.replace(initUrlCoords, mockedCoords);
+  const layerResponse = await axios.get(mockLayerUrl);
+  return layerResponse.status;
+};
+
 test('check layer tiles availablity', async () => {
-  const cadastreSourceUrl: any = cadastreGouv.getSource()?.getUrls();
-  const cadastreUrl = cadastreSourceUrl[0];
-  const mockCadastreUrl = cadastreUrl.replace(initUrlCoords, mockedCoords);
-  const cadastreResponse = await axios.get(mockCadastreUrl);
-  const cadastreStatusCode = cadastreResponse.status;
+  const cadastreStatusCode = await statusUrl(cadastreGouv);
   expect(cadastreStatusCode).toBe(200);
 
-  const droughtSourceUrl: any = droughtTilesLayers.getSource()?.getUrls();
-  const droughtUrl = droughtSourceUrl[0];
-  const mockDroughtUrl = droughtUrl.replace(initUrlCoords, mockedCoords);
-  const droughtResponse = await axios.get(mockDroughtUrl);
-  const droughtStatusCode = droughtResponse.status;
+  const droughtStatusCode = await statusUrl(droughtTilesLayers);
   expect(droughtStatusCode).toBe(200);
 
-  const filosofiSourceUrl: any = filosofiTilesLayers.getSource()?.getUrls();
-  const filosofiUrl = filosofiSourceUrl[0];
-  const mockFilosofiUrl = filosofiUrl.replace(initUrlCoords, mockedCoords);
-  const filosofiResponse = await axios.get(mockFilosofiUrl);
-  const filosofiStatusCode = filosofiResponse.status;
+  const filosofiStatusCode = await statusUrl(filosofiTilesLayers);
   expect(filosofiStatusCode).toBe(200);
 
-  const floodAppeninSourceUrl: any = floodAppeninTilesLayers.getSource()?.getUrls();
-  const floodAppeninUrl = floodAppeninSourceUrl[0];
-  const mockFloodAppeninUrl = floodAppeninUrl.replace(initUrlCoords, mockedCoords);
-  const floodAppeninResponse = await axios.get(mockFloodAppeninUrl);
-  const floodAppeninStatusCode = floodAppeninResponse.status;
+  const floodAppeninStatusCode = await statusUrl(floodAppeninTilesLayers);
   expect(floodAppeninStatusCode).toBe(200);
 
-  const submersionSourceUrl: any = submersionTilesLayers.getSource()?.getUrls();
-  const submersionUrl = submersionSourceUrl[0];
-  const mockSubmersionUrl = submersionUrl.replace(initUrlCoords, mockedCoords);
-  const submersionResponse = await axios.get(mockSubmersionUrl);
-  const submersionStatusCode = submersionResponse.status;
+  const submersionStatusCode = await statusUrl(submersionTilesLayers);
   expect(submersionStatusCode).toBe(200);
 });
