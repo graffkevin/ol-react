@@ -2,10 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Layer, LayerGroups } from '../../libs/interfaces';
-import { InputSwitcher } from './inputs.switcher/Inputs.switcher';
 import * as Styled from './layerSwitcher.style';
-import { toggleLayerVisibility } from './switcher.manager/toggle.layer.visibility';
-import { toggleLegendVisibility } from './switcher.manager/toggle.legend.visibility';
 
 interface LayerSwitcherProps {
   layerGroups: LayerGroups;
@@ -13,12 +10,39 @@ interface LayerSwitcherProps {
 
 export const LayerSwitcher = ({ layerGroups }: LayerSwitcherProps) => {
   const dispatch = useDispatch();
-  const [_stateLayerVisibilities, setStateLayerVisibilities] = useState<{ [key: string]: boolean }>(
-    Object.fromEntries(Object.keys(layerGroups).map((key) => [key, false])),
+  const [stateLayerVisibilities, setStateLayerVisibilities] = useState<{ [key: string]: boolean }>(
+    {},
   );
   const [stateLegendVisibilities, setStateLegendVisibilities] = useState<{
     [key: string]: boolean;
   }>({});
+
+  const toggleLayerVisibility = (
+    getLayer: Layer,
+    layerIsVisible: boolean,
+    setStateVisible: React.Dispatch<React.SetStateAction<{ [key: string]: boolean }>>,
+    setStateLegend: React.Dispatch<React.SetStateAction<{ [key: string]: boolean }>>,
+  ) => {
+    const stateVisibility = !layerIsVisible;
+    const tilesLayer = getLayer.tilesLayers;
+    tilesLayer.setVisible(stateVisibility);
+    dispatch(getLayer.sliceActions.setLayerVisibilityAction(stateVisibility));
+    setStateVisible((prevState) => ({ ...prevState, [getLayer.properties]: stateVisibility }));
+
+    if (!layerIsVisible) {
+      setStateLegend((prevState) => ({ ...prevState, [getLayer.properties]: false }));
+      dispatch(getLayer.sliceActions.setLegendVisibilityAction(false));
+    }
+  };
+
+  const toggleLegendVisibility = (layerGroup: Layer) => {
+    const legendIsVisible = !stateLegendVisibilities[layerGroup.properties];
+    setStateLegendVisibilities((prevState) => ({
+      ...prevState,
+      [layerGroup.properties]: legendIsVisible,
+    }));
+    dispatch(layerGroup.sliceActions.setLegendVisibilityAction(legendIsVisible));
+  };
 
   return (
     <Styled.LayerSwitcherContainer>
@@ -26,34 +50,34 @@ export const LayerSwitcher = ({ layerGroups }: LayerSwitcherProps) => {
         const { properties } = layerGroup;
         const layerName = useSelector((state: any) => state[properties].name);
         const layerIsVisible = useSelector((state: any) => state[properties].layerIsVisible);
-
-        const handleToggleLayerVisibility = () => {
-          toggleLayerVisibility(
-            layerGroup,
-            layerIsVisible,
-            setStateLayerVisibilities,
-            setStateLegendVisibilities,
-            dispatch,
-          );
-        };
-
-        const handleToggleLegendVisibility = () => {
-          toggleLegendVisibility(
-            layerGroup,
-            stateLegendVisibilities,
-            setStateLegendVisibilities,
-            dispatch,
-          );
-        };
+        const stateLayerVisibility = stateLayerVisibilities[properties] ?? layerIsVisible;
+        const stateLegendVisibility = stateLegendVisibilities[properties] ?? false;
 
         return (
-          <InputSwitcher
-            key={`${properties}-layer`}
-            properties={properties}
-            layerName={layerName}
-            toggleLayerVisibility={handleToggleLayerVisibility}
-            toggleLegendVisibility={handleToggleLegendVisibility}
-          />
+          <div key={properties}>
+            <label>{layerName}</label>
+            <input
+              type="checkbox"
+              id={`layer-${properties}`}
+              checked={stateLayerVisibility}
+              onChange={() =>
+                toggleLayerVisibility(
+                  layerGroup,
+                  stateLayerVisibility,
+                  setStateLayerVisibilities,
+                  setStateLegendVisibilities,
+                )
+              }
+            />
+            {stateLayerVisibility && (
+              <input
+                type="checkbox"
+                id={`legend-${properties}`}
+                checked={stateLegendVisibility}
+                onChange={() => toggleLegendVisibility(layerGroup)}
+              />
+            )}
+          </div>
         );
       })}
     </Styled.LayerSwitcherContainer>
