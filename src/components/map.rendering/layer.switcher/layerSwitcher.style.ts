@@ -11,8 +11,6 @@ export const LayerSwitcherContainer = styled.div`
 `;
 
 export const DisplayContainer = styled.div`
-  display: grid;
-  grid-template-columns: auto; /* Trois colonnes pour le label, InputLayer et les deux InputLegend */
-  grid-gap: 8px; /* Espacement entre les éléments */
+  display: flex;
   align-items: center;
 `;
