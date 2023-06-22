@@ -2,11 +2,10 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Layer, LayerGroups } from '../../libs/interfaces';
-import { DisplayLayer } from './display.layer/Display.layer';
-import { DisplayLegend } from './display.legend/Display.legend';
+import { InputSwitcher } from './inputs.switcher/Inputs.switcher';
 import * as Styled from './layerSwitcher.style';
-import { toggleLayerVisibility } from './toggle.layer.visibility';
-import { toggleLegendVisibility } from './toggle.legend.visibility';
+import { toggleLayerVisibility } from './switcher.manager/toggle.layer.visibility';
+import { toggleLegendVisibility } from './switcher.manager/toggle.legend.visibility';
 
 interface LayerSwitcherProps {
   layerGroups: LayerGroups;
@@ -14,7 +13,7 @@ interface LayerSwitcherProps {
 
 export const LayerSwitcher = ({ layerGroups }: LayerSwitcherProps) => {
   const dispatch = useDispatch();
-  const [stateLayerVisibilities, setStateLayerVisibilities] = useState<{ [key: string]: boolean }>(
+  const [_stateLayerVisibilities, setStateLayerVisibilities] = useState<{ [key: string]: boolean }>(
     Object.fromEntries(Object.keys(layerGroups).map((key) => [key, false])),
   );
   const [stateLegendVisibilities, setStateLegendVisibilities] = useState<{
@@ -27,7 +26,6 @@ export const LayerSwitcher = ({ layerGroups }: LayerSwitcherProps) => {
         const { properties } = layerGroup;
         const layerName = useSelector((state: any) => state[properties].name);
         const layerIsVisible = useSelector((state: any) => state[properties].layerIsVisible);
-        const stateLayerVisibility = stateLayerVisibilities[properties] ?? layerIsVisible;
 
         const handleToggleLayerVisibility = () => {
           toggleLayerVisibility(
@@ -49,18 +47,13 @@ export const LayerSwitcher = ({ layerGroups }: LayerSwitcherProps) => {
         };
 
         return (
-          <div key={properties}>
-            <DisplayLayer
-              key={`${properties}-layer`}
-              layerName={layerName}
-              toggleLayerVisibility={handleToggleLayerVisibility}
-            />
-            <DisplayLegend
-              key={`${properties}-legend`}
-              layerVisibility={stateLayerVisibility}
-              toggleLegendVisibility={handleToggleLegendVisibility}
-            />
-          </div>
+          <InputSwitcher
+            key={`${properties}-layer`}
+            properties={properties}
+            layerName={layerName}
+            toggleLayerVisibility={handleToggleLayerVisibility}
+            toggleLegendVisibility={handleToggleLegendVisibility}
+          />
         );
       })}
     </Styled.LayerSwitcherContainer>

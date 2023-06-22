@@ -9,3 +9,8 @@ export const LayerSwitcherContainer = styled.div`
   border: 1px solid black;
   background-color: white;
 `;
+
+export const DisplayContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
