@@ -43,7 +43,7 @@ export const InputsBasemap = ({
         }}
         style={{
           border: isCheck ? '2px solid rgb(255, 0, 0)' : 'none',
-          borderRadius: isCheck ? '6px' : '0',
+          borderRadius: isCheck ? '7.5px' : '0',
         }}
       />
     </BasemapInput>

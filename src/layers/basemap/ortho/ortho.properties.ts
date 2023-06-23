@@ -1,10 +1,13 @@
 import { createSlice, Slice } from '@reduxjs/toolkit';
 
+import orthoIcon from '../../../icons/basemap/ortho.svg';
+
 const orthoPropertiesSlice: Slice = createSlice({
   name: 'orthoProperties',
   initialState: {
     visible: false,
     name: 'Orthophoto',
+    icon: orthoIcon,
   },
   reducers: {
     setVisibilityAction: (state, action) => {
