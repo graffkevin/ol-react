@@ -4,8 +4,8 @@ export const BasemapSwitcherContainer = styled.div`
   position: absolute;
   padding: 0.5rem;
   z-index: 3;
-  top: 20rem;
-  right: 10rem;
+  top: 2rem;
+  right: 5rem;
   border: 1px solid black;
   background-color: white;
 `;
