@@ -24,7 +24,7 @@ export const LayerSwitcher = ({ layerGroups }: LayerSwitcherProps) => {
     setStateLegend: React.Dispatch<React.SetStateAction<{ [key: string]: boolean }>>,
   ) => {
     const stateVisibility = !layerIsVisible;
-    const tilesLayer = getLayer.tilesLayers;
+    const tilesLayer = getLayer.tileLayer;
     tilesLayer.setVisible(stateVisibility);
     dispatch(getLayer.sliceActions.setLayerVisibilityAction(stateVisibility));
     setStateVisible((prevState) => ({ ...prevState, [getLayer.properties]: stateVisibility }));

@@ -6,12 +6,12 @@ import { filosofiTilesLayers } from './filosofi.appenin/filosofi.tiles';
 
 export const layerGroups: LayerGroups = {
   drought: {
-    tilesLayers: droughtTilesLayers,
+    tileLayer: droughtTilesLayers,
     properties: 'droughtProperties',
     sliceActions: droughtSliceActions,
   },
   filosofi: {
-    tilesLayers: filosofiTilesLayers,
+    tileLayer: filosofiTilesLayers,
     properties: 'filosofiProperties',
     sliceActions: filosofiSliceActions,
   },

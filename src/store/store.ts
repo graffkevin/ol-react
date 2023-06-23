@@ -1,5 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import osmPropertiesReducer from '../layers/basemap/openStreetMap/osm.properties';
+import orthoPropertiesReducer from '../layers/basemap/ortho/ortho.properties';
 import cadastralPropertiesReducer from '../layers/layerTiles/cadastre/cadastre.properties';
 import droughtPropertiesReducer from '../layers/layerTiles/drought/drought.properties';
 import filosofiPropertiesReducer from '../layers/layerTiles/filosofi.appenin/filosofi.properties';
@@ -13,6 +15,8 @@ const store = configureStore({
     floodProperties: floodPropertiesReducer,
     marineSubmersionProperties: marineSubmersionPropertiesReducer,
     cadastralProperties: cadastralPropertiesReducer,
+    osmProperties: osmPropertiesReducer,
+    orthoProperties: orthoPropertiesReducer,
   },
 });
 
