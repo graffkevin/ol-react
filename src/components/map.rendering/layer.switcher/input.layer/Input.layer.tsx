@@ -5,29 +5,36 @@ interface InputLayerProps {
   properties: any;
   layer: any;
   name: any;
-  visibility: any;
+  layerVisibility: any;
+  legendVisibility: any;
 }
 
-export const InputLayer = ({ properties, layer, name, visibility }: InputLayerProps) => {
+export const InputLayer = ({
+  properties,
+  layer,
+  name,
+  layerVisibility,
+  legendVisibility,
+}: InputLayerProps) => {
   const dispatch = useDispatch();
 
-  const [inputIsChecked, setInputIsChecked] = useState(visibility);
-  const [legendVisibility, setLegendVisibility] = useState(false);
+  const [inputLayerIsChecked, setInputLayerIsChecked] = useState(layerVisibility);
+  const [inputLegendIsChecked, setInputLegendIsChecked] = useState(legendVisibility);
 
   const toggleLayerVisibility = (isVisible: boolean) => {
-    const stateVisibility = !isVisible;
+    const stateLayerVisibility = !isVisible;
     const tilesLayer = layer.tileLayer;
-    tilesLayer.setVisible(stateVisibility);
-    dispatch(layer.sliceActions.setLayerVisibilityAction(stateVisibility));
+    tilesLayer.setVisible(stateLayerVisibility);
+    dispatch(layer.sliceActions.setLayerVisibilityAction(stateLayerVisibility));
 
-    if (!isVisible) {
+    if (stateLayerVisibility === false) {
       dispatch(layer.sliceActions.setLegendVisibilityAction(false));
     }
   };
 
-  const toggleLegendVisibility = () => {
-    const legendIsVisible = !visibility;
-    dispatch(layer.sliceActions.setLegendVisibilityAction(legendIsVisible));
+  const toggleLegendVisibility = (isVible: boolean) => {
+    const stateLegendVisibility = !isVible;
+    dispatch(layer.sliceActions.setLegendVisibilityAction(stateLegendVisibility));
   };
 
   return (
@@ -37,17 +44,17 @@ export const InputLayer = ({ properties, layer, name, visibility }: InputLayerPr
         type="checkbox"
         id={`layer-${properties}`}
         onClick={() => {
-          toggleLayerVisibility(visibility);
-          setInputIsChecked(!inputIsChecked);
+          toggleLayerVisibility(layerVisibility);
+          setInputLayerIsChecked(!inputLayerIsChecked);
         }}
       />
-      {inputIsChecked && (
+      {inputLayerIsChecked && (
         <input
           type="checkbox"
           id={`legend-${properties}`}
           onClick={() => {
-            toggleLegendVisibility();
-            setLegendVisibility(!legendVisibility);
+            toggleLegendVisibility(legendVisibility);
+            setInputLegendIsChecked(!inputLegendIsChecked);
           }}
         />
       )}

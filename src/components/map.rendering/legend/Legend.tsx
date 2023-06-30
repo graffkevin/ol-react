@@ -9,7 +9,7 @@ interface LegendProps {
 }
 
 export const Legend = ({ layerGroups }: LegendProps) => {
-  const [blockLegendVisibility, seBlockLegendVisibility] = useState(false);
+  const [blockLegendVisibility, seBlockLegendVisibility] = useState(true);
   const toggleDiv = () => seBlockLegendVisibility(!blockLegendVisibility);
   return (
     <>

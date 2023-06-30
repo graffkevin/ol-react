@@ -7,6 +7,7 @@ export const BasemapInput = styled.div`
 `;
 
 export const InputSwitcher = styled.input`
+  margin: 0.1rem;
   &:hover {
     transform: scale(1.1);
   }

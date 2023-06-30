@@ -15,6 +15,7 @@ export const LayerSwitcher = ({ layerGroups }: LayerSwitcherProps) => {
         const { properties } = layerGroup;
         const layerName = useSelector((state: any) => state[properties].name);
         const layerIsVisible = useSelector((state: any) => state[properties].layerIsvisible);
+        const legendIsVisible = useSelector((state: any) => state[properties].legendIsVisible);
 
         return (
           <InputLayer
@@ -22,7 +23,8 @@ export const LayerSwitcher = ({ layerGroups }: LayerSwitcherProps) => {
             properties={properties}
             layer={layerGroup}
             name={layerName}
-            visibility={layerIsVisible}
+            layerVisibility={layerIsVisible}
+            legendVisibility={legendIsVisible}
           />
         );
       })}
