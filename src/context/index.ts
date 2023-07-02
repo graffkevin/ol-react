@@ -12,7 +12,7 @@ const initMap = (): Map => {
     target: undefined,
     layers: [osmBasemap, orthoHRBasemap, droughtTilesLayers, filosofiTilesLayers],
     view: undefined,
-    controls: defaults({ attribution: true, zoom: true, rotate: true }).extend([
+    controls: defaults({ attribution: true, zoom: true, rotate: false }).extend([
       new ScaleLine(),
       new FullScreen(),
     ]),
