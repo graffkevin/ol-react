@@ -1,68 +1,59 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+
+import northSvg from '../../../icons/north.svg';
+
+export const RotationButton = styled.div`
+  position: absolute;
+  right: 1rem;
+  top: 54rem;
+  z-index: 4;
+
+  background: none;
+  border: none;
+  background: url('${northSvg}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 25px;
+  height: 25px;
+  text-indent: -9999px;
+  &:hover {
+    transform: scale(1.4);
+  }
+`;
 
 export const RotationContainer = styled.div`
-  position: relative;
-  width: 200px;
-  height: 200px;
-  z-index: 3;
-`;
-
-export const RotationTrack = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 4px solid gray;
-  transform-origin: center center;
-`;
-
-export const RotationThumb = styled.div<{ rotation: number }>`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 20px;
-  height: 20px;
-  background-color: blue;
-  border-radius: 50%;
-  transform: translate(-50%, -50%) rotate(${(props) => props.rotation}rad);
-  ${({ rotation }) =>
-    rotation &&
-    css`
-      transition: transform 0.3s ease;
-    `}
-`;
-
-export const RotationInput = styled.input`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-  opacity: 5;
-`;
-
-export const RotationSvgContainer = styled.svg`
   position: absolute;
   z-index: 4;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); // Centrer le conteneur
+  bottom: 5%;
+  right: 1%;
+  background-color: none;
+  transform: translate(-50%, -50%);
   width: 200px;
   height: 200px;
-  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
   align-items: center;
+  justify-content: center;
+`;
+
+export const RotationSvg = styled.svg`
+  width: 100%;
+  height: 100%;
 `;
 
 export const RotationSvgTrack = styled.circle`
-  fill: none;
+  fill: rgba(255, 255, 255, 0.8);
   stroke: black;
 `;
 
 export const RotationSvgThumb = styled.circle`
   fill: blue;
+  cursor: pointer;
+`;
+
+export const LabelDegree = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   cursor: pointer;
 `;

@@ -2,10 +2,13 @@ import { useContext, useState } from 'react';
 
 import { openlayerContext } from '../../../context';
 import {
-  RotationSvgContainer,
+  LabelDegree,
+  RotationContainer,
+  RotationSvg,
   RotationSvgThumb,
   RotationSvgTrack,
 } from './rotation.controller.style';
+import { thumbMove } from './thumb.move';
 
 export const RotationController = () => {
   const [mapRotation, setMapRotation] = useState(0);
@@ -21,6 +24,7 @@ export const RotationController = () => {
   // position of thumb
   const [thumbPositionX, setThumbPositionX] = useState(cx);
   const [thumbPositionY, setThumbPositionY] = useState(cy - radius);
+  const [degreePosition, setDegreePosition] = useState(0);
 
   const handleRotationChange = (degree: number) => {
     const radians = (degree * Math.PI) / 180;
@@ -38,50 +42,34 @@ export const RotationController = () => {
 
   const handleMouseMove = (event: any) => {
     if (isThumbDragging) {
-      const boundingRect = event.currentTarget.getBoundingClientRect();
-      const containerCenterX = boundingRect.left + boundingRect.width / 2;
-      const containerCenterY = boundingRect.top + boundingRect.height / 2;
-
-      const mouseX = event.clientX - containerCenterX;
-      const mouseY = event.clientY - containerCenterY;
-
-      // Calculate the angle between the center of the track and the mouse position
-      let angle = Math.atan2(mouseY, mouseX);
-
-      // Calculate the new thumb position using the angle and radius
-      const x = cx + Math.cos(angle) * radius;
-      const y = cy + Math.sin(angle) * radius;
-
-      // Move the thumb to the new position
+      const { x, y, degrees } = thumbMove(event, cx, cy, radius);
       setThumbPositionX(x);
       setThumbPositionY(y);
-
-      // Compute rotation angle for the map
-      let degrees = (angle * 180) / Math.PI;
-
-      // Adjust the angle to be between 0 and 360
-      if (degrees < 0) {
-        degrees = 360 + degrees;
-      }
-
-      // Adjust the angle by 90 degrees to make 0 start at the top (north)
-      degrees += 90;
-      if (degrees >= 360) {
-        degrees -= 360;
-      }
-
+      setDegreePosition(Math.round(degrees));
       handleRotationChange(degrees);
     }
   };
 
+  const resetPosition = () => {
+    setThumbPositionX(cx);
+    setThumbPositionY(cy - radius);
+    setDegreePosition(0);
+    handleRotationChange(0);
+    setMapRotation(0);
+    map.getView().setRotation(0);
+  };
+
   return (
-    <RotationSvgContainer
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-    >
-      <RotationSvgTrack cx={cx} cy={cy} r={radius} />
-      <RotationSvgThumb cx={thumbPositionX} cy={thumbPositionY} r={10} />
-    </RotationSvgContainer>
+    <RotationContainer>
+      <RotationSvg
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+      >
+        <RotationSvgTrack cx={cx} cy={cy} r={radius} />
+        <RotationSvgThumb cx={thumbPositionX} cy={thumbPositionY} r={10} />
+      </RotationSvg>
+      <LabelDegree onClick={resetPosition}>{degreePosition}°</LabelDegree>
+    </RotationContainer>
   );
 };
