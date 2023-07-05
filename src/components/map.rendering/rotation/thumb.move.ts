@@ -16,16 +16,8 @@ export const thumbMove = (event: any, cx: number, cy: number, radius: number) =>
   // Compute rotation angle for the map
   let degrees = (angle * 180) / Math.PI;
 
-  // Adjust the angle to be between 0 and 360
-  if (degrees < 0) {
-    degrees = 360 + degrees;
-  }
-
-  // Adjust the angle by 90 degrees to make 0 start at the top (north)
-  degrees += 90;
-  if (degrees >= 360) {
-    degrees -= 360;
-  }
+  // Rotate the map 90 degrees clockwise
+  degrees = (degrees + 90 + 360) % 360;
 
   return { x, y, degrees };
 };
