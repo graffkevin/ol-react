@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
-import empty from '../../../icons/basemap/empty.svg';
+import basemapButton from '../../../icons/basemap/button_basemap.svg';
 import { BasemapLayerGroups } from '../../libs/interfaces';
 import { BasemapSwitcherActivation } from './render.basemap.style';
-import { BasemapSwitcher } from './switcher/Basemap.switcher';
+import { BasemapSwitcher } from './switcher.controller/Basemap.switcher';
 
 interface BasemapSwitcherProps {
   basemapGroups: BasemapLayerGroups;
@@ -16,7 +16,7 @@ export const RenderBasemapSwitcher = ({ basemapGroups }: BasemapSwitcherProps) =
       <BasemapSwitcherActivation
         type="image"
         alt="basemap-switcher"
-        src={empty}
+        src={basemapButton}
         onClick={() => setActivate(!activate)}
       />
       {activate && <BasemapSwitcher basemapGroups={basemapGroups} />}

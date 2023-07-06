@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import empty from '../../../icons/basemap/empty.svg';
 import { LayerGroups } from '../../libs/interfaces';
-import { LayerSwitcherActivation } from './render.layer.style';
-import { LayerSwitcher } from './switcher/Layer.switcher';
+import { LayerSwitcherActivation } from './render.layer.switcher.style';
+import { LayerSwitcher } from './switcher.controller/Layer.switcher';
 
 interface RenderSwitcherProps {
   layerGroups: LayerGroups;

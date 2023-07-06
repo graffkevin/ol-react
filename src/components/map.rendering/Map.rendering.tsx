@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 
 import { openlayerContext } from '../../context';
 import * as Styled from './base.style.map/styled';
-import { useSearchCoordinates } from './urlController/searchCoordinates';
+import { useSearchCoordinates } from './url.controller/searchCoordinates';
 
 export function MapRendering(): JSX.Element {
   const [hash, setHash] = useState(window.location.hash);
