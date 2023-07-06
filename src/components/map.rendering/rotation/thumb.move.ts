@@ -1,5 +1,8 @@
 export const thumbMove = (event: any, cx: number, cy: number, radius: number) => {
-  const boundingRect = event.currentTarget.getBoundingClientRect();
+  const boundingRect = event.currentTarget
+    ? event.currentTarget.getBoundingClientRect()
+    : event.target.getBoundingClientRect();
+  console.log(boundingRect);
   const containerCenterX = boundingRect.left + boundingRect.width / 2;
   const containerCenterY = boundingRect.top + boundingRect.height / 2;
 

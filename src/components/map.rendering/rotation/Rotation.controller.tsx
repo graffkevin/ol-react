@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 
 import { openlayerContext } from '../../../context';
 import {
@@ -11,6 +11,8 @@ import {
 import { thumbMove } from './thumb.move';
 
 export const RotationController = () => {
+  const rotationSvgRef = useRef(null);
+
   const [mapRotation, setMapRotation] = useState(0);
   const map = useContext(openlayerContext);
 
@@ -41,8 +43,26 @@ export const RotationController = () => {
   };
 
   const handleMouseMove = (event: any) => {
+    event.preventDefault();
     if (isThumbDragging) {
       const { x, y, degrees } = thumbMove(event, cx, cy, radius);
+      setThumbPositionX(x);
+      setThumbPositionY(y);
+      setDegreePosition(Math.round(degrees));
+      handleRotationChange(degrees);
+    }
+  };
+
+  const handleTouchMove = (event: any) => {
+    event.preventDefault();
+    if (isThumbDragging) {
+      const touch = event.touches[0];
+      const touchEvent = {
+        clientX: touch.clientX,
+        clientY: touch.clientY,
+        target: rotationSvgRef.current,
+      };
+      const { x, y, degrees } = thumbMove(touchEvent, cx, cy, radius);
       setThumbPositionX(x);
       setThumbPositionY(y);
       setDegreePosition(Math.round(degrees));
@@ -62,9 +82,13 @@ export const RotationController = () => {
   return (
     <RotationContainer>
       <RotationSvg
+        ref={rotationSvgRef}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
+        onTouchStart={handleMouseDown}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleMouseUp}
       >
         <RotationSvgTrack cx={cx} cy={cy} r={radius} />
         <RotationSvgThumb cx={thumbPositionX} cy={thumbPositionY} r={10} />
