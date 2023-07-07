@@ -1,7 +1,7 @@
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 
-import { config } from '../../../config';
+import { config } from '../../../services/config';
 
 const { ESRI_TILES_API } = config;
 

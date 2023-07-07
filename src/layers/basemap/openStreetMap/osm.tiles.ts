@@ -1,7 +1,7 @@
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 
-import store from '../../../store/store';
+import store from '../../../services/store/store';
 
 const currentState = store.getState();
 const osmBasemapProperties = currentState.osmProperties;

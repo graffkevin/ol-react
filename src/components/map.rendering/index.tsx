@@ -2,7 +2,7 @@ import { transform } from 'ol/proj.js';
 import View from 'ol/View';
 import { useContext, useEffect, useState } from 'react';
 
-import { openlayerContext } from '../../context';
+import { openlayerContext } from '../../services/context';
 import { Map } from './basics.style/styled';
 import { addPointOnSearch } from './set.view/addPointOnSearch';
 

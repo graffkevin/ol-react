@@ -1,6 +1,6 @@
 import { useContext, useRef, useState } from 'react';
 
-import { openlayerContext } from '../../../context';
+import { openlayerContext } from '../../../services/context';
 import {
   LabelDegree,
   RotationContainer,

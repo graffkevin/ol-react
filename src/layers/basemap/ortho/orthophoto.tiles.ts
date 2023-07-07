@@ -1,8 +1,8 @@
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 
-import { config } from '../../../config';
-import store from '../../../store/store';
+import { config } from '../../../services/config';
+import store from '../../../services/store/store';
 
 const { IGN_TILES_API } = config;
 

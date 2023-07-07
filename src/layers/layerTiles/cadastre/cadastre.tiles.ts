@@ -2,8 +2,8 @@ import MVT from 'ol/format/MVT';
 import VectorTileSource from 'ol/source/VectorTile';
 
 import { ExtendedVectorTileLayer } from '../../../components/libs/interfaces';
-import { config } from '../../../config';
-import store from '../../../store/store';
+import { config } from '../../../services/config';
+import store from '../../../services/store/store';
 import { cadastreStyle } from './cadastre.style';
 
 const currentState = store.getState();

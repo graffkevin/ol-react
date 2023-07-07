@@ -1,6 +1,6 @@
 import { Fill, Style } from 'ol/style';
 
-import store from '../../../store/store';
+import store from '../../../services/store/store';
 
 const currentState = store.getState();
 const marineSubmersionProperties = currentState.marineSubmersionProperties;

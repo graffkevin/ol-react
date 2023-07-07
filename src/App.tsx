@@ -3,7 +3,7 @@ import './App.css';
 import { Provider } from 'react-redux';
 
 import { Map } from './components';
-import store from './store/store';
+import store from './services/store/store';
 
 function App() {
   return (
