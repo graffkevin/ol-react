@@ -3,8 +3,8 @@ import View from 'ol/View';
 import { useContext, useEffect, useState } from 'react';
 
 import { openlayerContext } from '../../context';
-import { addPointOnSearch } from '../controllers/url.controller/addPointOnSearch';
-import * as Styled from './base.style.map/styled';
+import { Map } from './basics.style/styled';
+import { addPointOnSearch } from './set.view/addPointOnSearch';
 
 export const MapRendering = (): JSX.Element => {
   const [hash, setHash] = useState(window.location.hash);
@@ -34,9 +34,5 @@ export const MapRendering = (): JSX.Element => {
     );
   }, [coordinate]);
 
-  return (
-    <>
-      <Styled.Map id="map" />;
-    </>
-  );
+  return <Map id="map" />;
 };
