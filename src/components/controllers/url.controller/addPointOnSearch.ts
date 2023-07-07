@@ -3,7 +3,7 @@ import { defaultLocation, defaultZoom } from '../../utils/defaultValues';
 import { from4326to3857 } from '../../utils/produceGeometries';
 import { paramsFromHash } from './getSearchMethods';
 
-export function useSearchCoordinates(hash: any, openLayerMap: any) {
+export function addPointOnSearch(hash: any, openLayerMap: any) {
   // If you wanna request url like this : http://localhost:3000/#15/43.567080599999997/-1.4449604000000000
 
   if (hash.length > 0) {

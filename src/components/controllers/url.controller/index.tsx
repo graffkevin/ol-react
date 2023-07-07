@@ -2,17 +2,16 @@ import { transform } from 'ol/proj.js';
 import View from 'ol/View';
 import { useContext, useEffect, useState } from 'react';
 
-import { openlayerContext } from '../../context';
-import * as Styled from './base.style.map/styled';
-import { useSearchCoordinates } from './url.controller/searchCoordinates';
+import { openlayerContext } from '../../../context';
+import { addPointOnSearch } from './addPointOnSearch';
 
-export function MapRendering(): JSX.Element {
+export const MapViewLocation = () => {
   const [hash, setHash] = useState(window.location.hash);
   const [coordinate, setCoordinate] = useState([40.567, -3.244, 10] as [number, number, number]);
   const openLayerMap = useContext(openlayerContext);
 
   useEffect(() => {
-    const [lng, lat, zoom] = useSearchCoordinates(hash, openLayerMap);
+    const [lng, lat, zoom] = addPointOnSearch(hash, openLayerMap);
     setCoordinate([lng, lat, zoom]);
   }, [hash]);
 
@@ -34,9 +33,5 @@ export function MapRendering(): JSX.Element {
     );
   }, [coordinate]);
 
-  return (
-    <>
-      <Styled.Map id="map" />;
-    </>
-  );
-}
+  return null;
+};
